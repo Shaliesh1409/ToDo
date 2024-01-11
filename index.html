@@ -18,6 +18,8 @@
         background-color: orangered;
         display: flex;
         align-items: center;
+        justify-content: space-between;
+
     }
 
     .headerCircle {
@@ -28,7 +30,8 @@
     .heading-text {
         display: flex;
         align-items: center;
-        margin: 600px;
+        margin: 0 20px;
+        /*  margin: 600px;*/
     }
 
     .circle1 {
@@ -72,6 +75,7 @@
         border-radius: 10px;
         text-align: center;
         border: 2px solid black;
+
     }
 
     #btn {
@@ -90,6 +94,7 @@
 
     .task-wrapper {
         display: flex;
+        flex-direction: row;
         margin: 0px 0% 10px 14%;
     }
 
@@ -199,6 +204,68 @@
         to {
             top: 0;
             opacity: 1
+        }
+    }
+
+
+    /* Default styles */
+    .heading-text {
+        margin: 0 20px;
+    }
+
+    #todos {
+        width: 65%;
+    }
+
+    #btn {
+        width: 100%;
+    }
+
+    /* Larger than standard 600px phones */
+    @media only screen and (min-width: 601px) {
+        .heading-text {
+            margin: 0 40px;
+        }
+
+        .headerCircle {
+            margin-right: 20px;
+        }
+
+        #todos {
+            width: 50%;
+        }
+
+        #btn {
+            width: auto;
+        }
+    }
+
+    /* Larger than 768px tablets */
+    @media only screen and (min-width: 769px) {
+        .heading {
+            justify-content: center;
+            /* Center the content on larger screens */
+        }
+
+        .in {
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        #todos {
+            width: 50%;
+        }
+    }
+
+    /* Larger than 1024px desktops */
+    @media only screen and (min-width: 1025px) {
+        .heading-text {
+            margin: 0 60px;
+        }
+
+        .task-wrapper {
+            margin: 0px 10% 10px;
         }
     }
 </style>
@@ -339,12 +406,12 @@
         });
 
         window.onload = function () {
-    const storedTasks = localStorage.getItem('tasks');
-    if (storedTasks) {
-        tasks = JSON.parse(storedTasks);
-        rendertasklist();
-    }
-};
+            const storedTasks = localStorage.getItem('tasks');
+            if (storedTasks) {
+                tasks = JSON.parse(storedTasks);
+                rendertasklist();
+            }
+        };
 
     </script>
 </body>
