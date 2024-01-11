@@ -100,6 +100,7 @@
 
     .task-container {
         color: rgb(48, 48, 48);
+        box-sizing: border-box;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -109,7 +110,13 @@
         width: 55%;
         margin: 0px 1% 10px;
         border-radius: 20px;
-        padding: 0 20px;
+        padding: 20px ;
+        overflow: hidden;        
+        /* Hide content that exceeds the box */
+        white-space: normal;
+        /*  text to wrapping to the next line */
+        text-overflow: ellipsis;
+        /* Show ellipsis (...) for overflowed plfltext */
     }
 
     .button-container {
@@ -155,19 +162,14 @@
     }
 
     .task-container-in-modal {
-        /* color: rgb(48, 48, 48);*/
         color: aliceblue;
         font-size: 20px;
-        height: 100px;
-        width: 90%;
-        /* Adjust the width as needed */
+        height: 200px;
         margin: 0 0 5px;
-        border: 3px solid black;
-        border-radius: 20px;
-        padding: 0 20px;
-        display: flex;
+        padding: 20px 20px;
         justify-content: center;
         align-items: center;
+        overflow-x: hidden;
     }
 
     .modal button {
@@ -204,68 +206,6 @@
         to {
             top: 0;
             opacity: 1
-        }
-    }
-
-
-    /* Default styles */
-    .heading-text {
-        margin: 0 20px;
-    }
-
-    #todos {
-        width: 65%;
-    }
-
-    #btn {
-        width: 100%;
-    }
-
-    /* Larger than standard 600px phones */
-    @media only screen and (min-width: 601px) {
-        .heading-text {
-            margin: 0 40px;
-        }
-
-        .headerCircle {
-            margin-right: 20px;
-        }
-
-        #todos {
-            width: 50%;
-        }
-
-        #btn {
-            width: auto;
-        }
-    }
-
-    /* Larger than 768px tablets */
-    @media only screen and (min-width: 769px) {
-        .heading {
-            justify-content: center;
-            /* Center the content on larger screens */
-        }
-
-        .in {
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-        }
-
-        #todos {
-            width: 50%;
-        }
-    }
-
-    /* Larger than 1024px desktops */
-    @media only screen and (min-width: 1025px) {
-        .heading-text {
-            margin: 0 60px;
-        }
-
-        .task-wrapper {
-            margin: 0px 10% 10px;
         }
     }
 </style>
@@ -326,7 +266,7 @@
                 const taskContainer = document.createElement("div")
                 taskContainer.classList.add("task-container")
                 // taskContainer.setAttribute("contenteditable", "true");
-                taskContainer.textContent = Tasktext
+                taskContainer.textContent = Tasktext.length > 100 ? (Tasktext).slice(0, 100) + '...' : Tasktext
 
                 const deletebutton = document.createElement("button")
                 deletebutton.textContent = "Delete"
@@ -337,7 +277,7 @@
                 const modify = document.createElement("button")
                 modify.textContent = "Modify"
                 modify.onclick = () => {
-                    modifytask(index)
+                    modifytask(index, Tasktext)
                 }
 
                 const buttonContainer = document.createElement("div")
@@ -369,14 +309,14 @@
          }  */
 
 
-        let modifytask = (index) => {
+        let modifytask = (index, Tasktext) => {
             const overlay = document.getElementById('overlay');
             const modal = document.getElementById('modal');
 
             overlay.style.display = 'flex';
             modal.innerHTML = '';
 
-            const taskContent = document.querySelectorAll(".task-container")[index].textContent;
+            const taskContent = Tasktext
 
 
             const taskContainerInModal = document.createElement("div");
